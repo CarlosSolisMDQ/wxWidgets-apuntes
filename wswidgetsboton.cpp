@@ -70,14 +70,27 @@ bool MyApp::OnInit(){
 void Button::OnButtonClick(wxCommandEvent& WXUNUSED(event)){
     
     static bool click;
-    
+    wxButton* botonColor;
+	botonColor = (wxButton*)this->FindWindowById(wxID_EXIT);
+/*
+Aqui algo interesante, para seleccionar un control(en este caso un boton) dentro del arbol de la app
+tenemos tres metodos, pero el que usé es buscarlo por el ID.
+primero hago un puntero del tipo del control que busco(boton) y luego busco la ID en el objeto raiz
+"el que señala el puntero this" y lo casteo (wxLOQUESEA*)
+*/
+
+//este bloque te codigo lo que hace es cambiar ternariamente el color cuando se clickea un boton
+
     if(click){
         click = false;
-           
+        //luego uso mi puntero para acceder a los metodos que heredó en este caso SetBackgroundColour
+        //y le cargo el color.	    
+        botonColor->SetBackgroundColour(wxColour(*wxLIGHT_GREY));   
         this->SetBackgroundColour(*wxBLUE);
         this->SetForegroundColour(*wxRED);
     }else{
         click = true;
+        botonColor->SetBackgroundColour(wxColour(*wxYELLOW));
         this->SetBackgroundColour(*wxRED);
         this->SetForegroundColour(*wxBLUE);
     }
